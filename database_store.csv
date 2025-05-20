@@ -1,0 +1,17 @@
+# Button to show stored user questions
+show_log_button = widgets.Button(description="View Question Log", button_style='info')
+log_output = widgets.Output()
+
+def on_show_log_click(b):
+    log_output.clear_output()
+    with log_output:
+        if os.path.exists(log_filename):
+            log_df = pd.read_csv(log_filename)
+            display(log_df)
+        else:
+            print("No questions logged yet.")
+
+show_log_button.on_click(on_show_log_click)
+
+# Display the log viewer
+display(show_log_button, log_output)
